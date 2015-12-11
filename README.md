@@ -10,12 +10,18 @@ This is just an initial pass at this app.  There is no UI and no settings other 
 
 ## Building
 * fetch
-		git clone https://github.com/xcsrz/hp-scan.git
+```bash
+	git clone https://github.com/xcsrz/hp-scan.git
+```
 * config
-		cd hp-scan
-		make config
+```bash
+	cd hp-scan
+	make config
+```
 * build
-		make build
+```bash
+	make build
+```
 
 ## Usage
 Simply launch the "HP Scan" app created from the build step.  There is no output so the icon will bounce in the dock while the scanner is capturing the image.  Once that's done the PDF will be saved to your desktop and opened in your default image application (most likely Preview).
