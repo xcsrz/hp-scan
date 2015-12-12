@@ -1,5 +1,5 @@
 # hp-scan
-A simple OSX app to fetch a PDF file from an HP Deskjet MFP.  It may work with other HP devices. ¯\_(ツ)_/¯
+A simple OSX app to fetch a PDF file from an HP Deskjet MFP.  It may work with other HP devices. ¯\\_(ツ)_/¯
 
 This is just the initial pass at this app.  There is no UI and no settings other than the IP which needs to be set before compiling.  It works great as a simple click-to-PDF button but there's room for improvement.  See ToDos below.
 
@@ -58,6 +58,7 @@ Simply launch the "HP Scan" app created from the build step.  There is no output
 * add Notifications so there is more than a bouncing icon for feedback
 * move the config step to after compiling so releases can be distributed and customized as needed.
 * add some form of a UI to offer options on scan quality and JPG files 
+* a better icon would be nice - icon's are not my thing
 
 ## Technical Notes
 * Requesting a scan is achieved by sending a POST request to the MFP with an XML POST body specifying the desired settings.  HOWEVER,
