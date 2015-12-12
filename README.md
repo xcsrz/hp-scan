@@ -59,7 +59,7 @@ Simply launch the "HP Scan" app created from the build step.  There is no output
 * move the config step to after compiling so releases can be distributed and customized as needed.
 * add some form of a UI to offer options on scan quality and JPG files 
 
-#### Technical Notes
+## Technical Notes
 * Requesting a scan is achieved by sending a POST request to the MFP with an XML POST body specifying the desired settings.  HOWEVER,
 * The Scan will prepare but not actually start until a GET request is made for the actual file to the path:
 ```
