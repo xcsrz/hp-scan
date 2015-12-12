@@ -1,17 +1,19 @@
 # hp-scan
-A simple OSX app to fetch a PDF file from an HP Deskjet MFP.  It may work with other HP devices. ¯\\_(ツ)_/¯
+A simple OSX app to fetch a PDF file from an HP Deskjet MFP.  It may work with other HP devices. ¯\\\_(ツ)\_/¯
 
 This is just the initial pass at this app.  There is no UI and no settings other than the IP which needs to be set before compiling.  It works great as a simple click-to-PDF button but there's room for improvement.  See ToDos below.
 
 ## Purpose
 If you have an residential grade HP MFP and you want to scan something your options are one of the following:
+
 1. Use the software
   * Install the HP bloatware from the CD or website (first time)
-  * Connect the software to your MFP (first time)
+  * Connect the software to your MFP (first time and repeated whenever it's acting up)
   * Click through the menu:
     * Scan
     * Scan to computer
     * Select computer (frequently the scanner won't find your computer and you're SOL here - time to switch to method #2)
+    * (I think there's extra steps here but I can't reproduce them because the software won't work - ironic, no?)
     * Export the document from the HP software to wherever you want it.
 2. Use the web interface
   * Browse to the IP address of your printer (or dns name if you're savvy)
@@ -24,12 +26,12 @@ If you have an residential grade HP MFP and you want to scan something your opti
   * Now comes the fun part, depending on the filetype you chose:
     * JPG
       * Right click on the preview image (it's actually the fullsize image shrunk for display) and use "Save image as ..." to get your image.
-    * PDF (aka collosal UX failure)  There's a line that says "Click the Save Icon" ... However, there is no save icon anywhere on the page.  There's nothing.  The right-click method used for JPG's doesn't work.  There is really no way to to get the PDF short of the developer approach:
+    * PDF (aka colossal UX failure)  There's a line that says "Click the Save Icon" ... However, there is no save icon anywhere on the page.  There's nothing.  The right-click method used for JPG's doesn't work.  There is really no way to to get the PDF short of the developer approach:
       * Launch the network inspector (or whatever it's called for your browser)
       * Find the GET request made to a URL like /Scan/Jobs/47/Pages/1 (the 47 is the value that will change)
       * Open that link directly in your browser and save from there or use curl/wget to fetch it from a command line.
 
-After encountering this mess too many times and hearing the screams of frustration "I JUST WANT TO SCAN ONE PAGE!!" ... I finally broke down and wrote this little app here.  In the end I found it shaved so much time and frustration that the scanners are now actually useful where before the scanning functionality was such an inconvenient broken limb of the device that the need to scan was faced with the decision to use the MFP or break out a portable scanner and hook it up.
+After encountering this mess too many times and hearing the screams of frustration "I JUST WANT TO SCAN ONE PAGE!!" ... I finally broke down and wrote this little app here.  In the end I found it shaved so much time and frustration that the scanners are now actually useful where before scanning was such an inconvenient broken limb of the device that the need to scan translated to the decision to attempt to use the MFP or break out a portable scanner and hook it up knowing it would take a little longer but it would work as intended the very first time.
 
 ## Prereqs
 * OSX
