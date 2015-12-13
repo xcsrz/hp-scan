@@ -1,4 +1,6 @@
-# hp-scan
+![HP Scan](/icon.png?raw=true "HP Scan")
+
+# HP Scan
 A simple OSX app to fetch a PDF file from an HP Deskjet MFP.  It may work with other HP devices. ¯\\\_(ツ)\_/¯
 
 This is just the initial pass at this app.  There is no UI and no settings other than the IP which needs to be set before compiling.  It works great as a simple click-to-PDF button but there's room for improvement.  See ToDos below.
@@ -35,7 +37,7 @@ After encountering this mess too many times and hearing the screams of frustrati
 
 ## Prereqs
 * OSX
-* golang (standard libraries)
+* golang (no extra libraries required)
 * imagemagick (for customizing icons)
 
 ## Building
