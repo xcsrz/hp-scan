@@ -2,9 +2,10 @@ package main
 
 import (
 	"encoding/xml"
-	"fmt"
+	"github.com/deckarep/gosx-notifier"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -18,28 +19,43 @@ import (
 var BinaryURL string
 
 func main() {
+	notifWaiting := false
 	for {
 		ss := scanStatus()
 		if ss == "Idle" {
 			break
 		}
-		fmt.Println("waiting for scanner, status is", ss)
-		time.Sleep(5 * time.Second)
+		if !notifWaiting {
+			notifWaiting = true
+			postNotification("Waiting for scanner to be come available.")
+		}
+		time.Sleep(2 * time.Second)
 	}
-
+	postNotification("Requesting a scan")
 	jobLocation := startScan()
-	fmt.Println("Job info file is located at", jobLocation)
+	postNotification("Job info file is located at " + jobLocation)
 	for {
 		js := jobStatus(jobLocation)
-		fmt.Print(".")
 		if js == "Completed" {
 			break
 		}
 		time.Sleep(5 * time.Second)
 
 	}
-	fmt.Println()
-	fmt.Println("pdf file is ready")
+	log.Println("pdf file is ready")
+}
+
+func postNotification(message string) {
+	log.Println(message)
+	alert := gosxnotifier.NewNotification(message)
+	alert.Title = "HP Scan"
+	alert.Subtitle = PrinterAddress
+	alert.Sound = gosxnotifier.Bottle
+	alert.Group = "com.xcsrz.hp-scan"
+	alert.Sender = "com.xcsrz.hp-scan"
+	alert.AppIcon = "icon.png"
+	err := alert.Push()
+	checkErr(err)
 }
 
 func filePath() string {
@@ -87,8 +103,7 @@ func downloadFile() {
 	defer resp.Body.Close()
 	n, err := io.Copy(file, resp.Body)
 	checkErr(err)
-	fmt.Println()
-	fmt.Println(n, "bytes written")
+	postNotification(path + " written with " + strconv.FormatInt(n, 10) + " bytes.")
 	openFile(path)
 }
 
@@ -109,7 +124,7 @@ func extractBinaryUrl(data []byte) {
 	}
 	_ = xml.Unmarshal(data, &resp)
 	BinaryURL = resp.ScanJob.PreScanPage.BinaryURL
-	fmt.Println("Downloading file from", scannerAddress(BinaryURL))
+	postNotification("Downloading file from " + scannerAddress(BinaryURL))
 	go downloadFile()
 }
 
@@ -127,7 +142,7 @@ func jobStatus(url string) string {
 }
 
 func scanStatus() string {
-	fmt.Println("checking scanner status")
+	log.Println("checking scanner status")
 	var body []byte
 	respBody, err := http.Get(scannerAddress("/Scan/Status"))
 	checkErr(err)
